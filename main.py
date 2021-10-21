@@ -19,7 +19,9 @@ file.close()
 
 @app.route('/', methods=['GET'])
 def get_file():
-    response = send_from_directory(FOLDER_PATH, FILE_NAME)
-    return response
+    try:
+        return send_from_directory(FOLDER_PATH, FILE_NAME)
+    except FileNotFoundError:
+        abort(404)
 
 app.run(host=HOST, port=PORT)
